@@ -1,15 +1,81 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div>
+    Task2 <br>
+    <MyButton v-on:added="addIsCalled()" state="add"></MyButton>
+    <MyButton v-on:deleted="deleteIsCalled()" state="delete"></MyButton>
+    <br>
+    <br>
+
+    Task3 <br/>
+    <TodoItem v-on:marked-as-pending="pendingIsCalled()" v-on:marked-as-done="doneIsCalled()" :todo="todo"></TodoItem>
+    <TodoItem v-on:marked-as-pending="pendingIsCalled()" v-on:marked-as-done="doneIsCalled()" :todo="todo1"></TodoItem>
+    <br>
+
+    Task4 <br/>
+    <TodoItem 
+      @todo-deleted="deleteTodo"
+      :key="todoItem.id" 
+      v-for="todoItem in taskList" 
+      :todo="todoItem">
+    </TodoItem>
+  </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import TodoItem from './components/TodoItem.vue';
 
 export default {
   name: 'App',
+  data() {
+    return {
+      taskList: [
+        {
+          id: 1,
+          task: "Work",
+          state: "pending"
+        },
+        {
+          id: 2,
+          task: "Study",
+          state: "pending"
+        },
+        {
+          id: 3,
+          task: "Play",
+          state: "pending"
+        },
+        {
+          id: 4,
+          task: "Run",
+          state: "pending"
+        }
+      ],
+      todo: {
+        task: "hello",
+        state: "done"
+      },
+      todo1: {
+        task: "hello1",
+        state: "pending"
+      }
+    }
+  },
   components: {
-    HelloWorld
+    TodoItem
+  },
+  methods: {
+    addIsCalled() {
+      console.log('added');
+    },
+    deleteIsCalled() {
+      console.log('deleted');
+    },
+    pendingIsCalled() {
+      console.log("pending");
+    },
+    doneIsCalled() {
+      console.log("done");
+    }
   }
 }
 </script>
